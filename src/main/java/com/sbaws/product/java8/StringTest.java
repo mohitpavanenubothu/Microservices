@@ -1,6 +1,7 @@
 package com.sbaws.product.java8;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -23,6 +24,15 @@ public class StringTest {
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
         System.out.println("Duplicate elements above String is::" + duplicateKeys);
+
+        //find a non-repeat element from a given String
+        String nonRepeatChar = Arrays.stream(str.split(""))
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(i -> i.getValue() == 1)
+                .findFirst().get().getKey();
+        System.out.println("1st Non Repeat character is " + nonRepeatChar);
 
     }
 }
